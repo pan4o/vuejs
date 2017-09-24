@@ -8,32 +8,84 @@
 
 	<div id="app">
 		<h1>Hello {{name}}</h1>
+		<p>{{userInfo}}</p>
 		<!-- короткий синтаксис директивы v-bind (полный синтаксис выглядит так v-bind:href="") -->
 		<a :href="url">Google link</a>
-		<button v-on:click="changeName">Change Name</button>
+
+		<!-- короткий синтаксис директивы v-on (полный синтаксис выглядит так v-on:click="") -->
+		<button @click="changeName">Change Name</button>
+
+		<br>
+		<br>
+
+		Add book: <input v-model="currentBook" type="text">
+
+		<button @click="addBook">Add Book</button>
+
+		<br>
+		<br>
+
+		<div v-if="this.books.length > 0">
+			Books list:
+			<ul>
+				<li v-for="current in books">{{current}}</li>
+			</ul>
+		</div>
+		
 	</div>
 
 	<script>
 	 	new Vue({
+
 	 		el: '#app',
+
 	 		data: {
-	 			name: 'Serega',
-	 			url: 'https://google.com'
+				name: 'Serega',
+				age: 28,
+				url: 'https://google.com',
+				currentBook: 'Vue.js book',
+				books: []
 	 		},
+
 	 		methods: {
+
 	 			changeName: function () {
 
 	 				if (this.name == 'Serega') {
 
-	 					this.name = 'Bill';
+						this.name = 'Pancho';
 
 	 				} else {
 
-	 					this.name = "Serega";
+						this.name = 'Serega';
 
 	 				}	 				
-	 			}
-	 		}
+				},
+
+				addBook:  function () {
+
+					this.books.push(this.currentBook);
+
+				}
+
+			},
+
+			computed: {
+
+				userInfo: function () {
+					return this.name + ' is ' + this.age + ' years old'
+				}
+
+			},
+
+			watch: {
+
+				name: function () {
+					console.log('Name is changed')
+				}
+
+			}
+
 	 	});
 	</script>
 
