@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue.js introductions</title>
+	<meta charset="UTF-8">
+	<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+
+<div id="app">
+	<p>{{message}}</p>
+	<span v-bind:title="loadTime">Подержи курсор надо мной пару секунд</span>
+	<p v-if="seen">Сейчас меня видно!</p>
+	<div>
+		<button v-on:click="changeSeen">
+			Click
+		</button>
+
+		<p>Todo list:</p>
+		<ul>
+			<li v-for="item in todos">{{item.text}}</li>
+		</ul>
+	</div>
+	
+</div>
+
+<script>
+	var app = new Vue({
+		el: '#app',
+		data: {
+			message: 'Hello World',
+			loadTime: 'Страница загружена ' + new Date().toLocaleString(),
+			seen: true,
+			todos: [
+				{text: 'Посадить дерево'},
+				{text: 'Построить дом'},
+				{text: 'Вырастить сына'}
+			]
+		},
+		methods: {
+			changeSeen: function () {
+				if(this.seen) {
+					this.seen = false;
+				} else {
+					this.seen = true;
+				}
+			}
+		}
+	});
+</script>
+
+</body>
+</html>
