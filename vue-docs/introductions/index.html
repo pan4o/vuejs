@@ -4,6 +4,7 @@
 	<title>Vue.js introductions</title>
 	<meta charset="UTF-8">
 	<script src="https://unpkg.com/vue"></script>
+	<script src="test-component.js"></script>
 </head>
 <body>
 
@@ -21,7 +22,31 @@
 			<li v-for="item in todos">{{item.text}}</li>
 		</ul>
 	</div>
-	
+
+	<div>
+		<p>{{currentString}}</p>
+		<button v-on:click="reverseString">Reverse string</button>
+	</div>
+	<div>
+		<input type="text" v-model="currentName"/>
+
+		<p>{{currentName}}</p>
+
+		<first-component
+			v-for="todo in todos"
+			v-bind:title="todo.text"
+			v-bind:key="todo.id"
+		></first-component>
+
+		{{getReverseString}} <!-- olleH -->
+		{{getFullName}} <!-- Tom Dwan -->
+		{{getMovieName}}
+
+		<div>
+			Вопрос: <input type="text" v-model="question" /> {{typing}}
+		</div>
+
+	</div>
 </div>
 
 <script>
@@ -35,7 +60,16 @@
 				{text: 'Посадить дерево'},
 				{text: 'Построить дом'},
 				{text: 'Вырастить сына'}
-			]
+			],
+			currentString: 'Hello Vue.js!',
+			currentName: 'Tom',
+			rev_str: 'Hello',
+			firstName:'Tom',
+			lastName: 'Dwan',
+			movieName: 'Terminator',
+			moviePart: 2,
+			typing: '',
+			question: ''
 		},
 		methods: {
 			changeSeen: function () {
@@ -44,6 +78,34 @@
 				} else {
 					this.seen = true;
 				}
+			},
+			reverseString: function () {
+				this.currentString = this.currentString.split('').reverse().join('');
+			}
+		},
+		computed: {
+			getReverseString: function () {
+				return this.rev_str.split('').reverse().join('');
+			},
+			getFullName: function () {
+				return this.firstName + ' ' + this.lastName;
+			},
+			//через getter setter
+			getMovieName: {
+				get: function () {
+					return this.movieName + ' ' + this.moviePart;
+				},
+				set: function (newValue) {
+					var newMovieName = newValue.split(' ');
+					this.movieName = newMovieName[0];
+					this.moviePart = newMovieName[newMovieName.length - 1];
+				}
+			}
+		},
+		watch: {
+			question: function (value) {
+				this.typing = 'typing...';
+				console.log(value);
 			}
 		}
 	});
