@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Vue styles</title>
+	<meta charset="UTF-8">
+	<script src="https://unpkg.com/vue"></script>
+	<style type="text/css">
+
+		.box {
+			width: 100px;
+			height: 100px;
+			border-radius: 50px;
+			background-color: grey;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		.m-top {
+			margin-top: 10px;
+		}
+
+		.border {
+			border: 3px solid black;
+		}
+
+		.test {
+			color: yellow;
+		}
+
+		.active {background-color: red};
+
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div class="box" v-bind:class="classObject"></div>
+		<div class="m-top">
+			<span v-if="classObject.green">Round is green</span>
+			<span v-else>Round is grey</span>
+		</div>
+		<button class="m-top" v-on:click="changeColor">Change Color</button>
+
+		<!-- Передача классов в массив -->
+		<div class="m-top">
+			<div class="test" v-bind:class="[activeClass, testClass]">
+				Test div
+			</div>
+		</div>
+
+		<!-- v-bind:style -->
+		<div class="m-top">
+				<p v-bind:style="{color: blueColor}">Blue string</p>
+				<p v-bind:style="styles">String with inline styles in object</p>
+		</div>
+	</div>
+	<script>
+		new Vue({
+
+			el: '#container',
+
+			data: {
+				classObject: {
+					green: false
+				},
+				activeClass: 'active',
+				testClass: 'border',
+				blueColor: 'blue',
+				styles: {
+					color: '#ff00ff',
+					'font-size': '20px'
+				}
+			},
+
+			methods: {
+				changeColor() {
+					this.classObject.green ? this.classObject.green = false : this.classObject.green = true;
+				}
+			}
+
+		});
+	</script>
+</body>
+</html>
