@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Rendering</title>
+	<meta charset="UTF-8">
+	<script src="https://unpkg.com/vue"></script>
+</head>
+<body>
+	<div id="root">
+		<div v-if="ok">Все супер</div>
+		<div v-else>Все обычно</div>
+
+		<!-- Блочный вариант -->
+		<template v-if="ok">
+			<p>Показывать html блок в if</p>
+			<p>!!!</p>
+		</template>
+
+		<div v-if="number > 3">
+			number > 3
+		</div>
+		<div v-else-if="number == 3">
+			number = 3
+		</div>
+		<div v-else>
+			number < 3
+		</div>
+		<template v-if="loginType == 'username'">
+			логин <input type="text" key="login-input" />
+		</template>
+		<template v-else>
+			пароль <input type="text" key="pass-input" />
+		</template>
+		<button v-on:click="changeInputType">
+			Change input
+		</button>
+	</div>
+	<script>
+		var vue = new Vue({
+			el: '#root',
+
+			data: {
+				ok: true,
+				number: 4,
+				loginType: 'username'
+			},
+
+			methods: {
+				changeInputType() {
+					if (this.loginType == 'username') {
+						this.loginType = 'email';
+					} else {
+						this.loginType = 'username';
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>
