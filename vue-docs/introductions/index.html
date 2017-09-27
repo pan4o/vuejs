@@ -43,7 +43,8 @@
 		{{getMovieName}}
 
 		<div>
-			Вопрос: <input type="text" v-model="question" /> {{typing}}
+			Вопрос: <input type="text" v-model="question" />
+			<p v-if="typing">typing...</p>
 		</div>
 
 	</div>
@@ -68,44 +69,53 @@
 			lastName: 'Dwan',
 			movieName: 'Terminator',
 			moviePart: 2,
-			typing: '',
+			typing: false,
+			isTyping: null,
 			question: ''
 		},
+
 		methods: {
-			changeSeen: function () {
-				if(this.seen) {
-					this.seen = false;
-				} else {
-					this.seen = true;
-				}
+			changeSeen() {
+				this.seen ? this.seen = false : this.seen = true;
 			},
-			reverseString: function () {
+
+			reverseString() {
 				this.currentString = this.currentString.split('').reverse().join('');
 			}
 		},
+
 		computed: {
-			getReverseString: function () {
+			getReverseString() {
 				return this.rev_str.split('').reverse().join('');
 			},
-			getFullName: function () {
+
+			getFullName() {
 				return this.firstName + ' ' + this.lastName;
 			},
+
 			//через getter setter
 			getMovieName: {
-				get: function () {
+				get() {
 					return this.movieName + ' ' + this.moviePart;
 				},
-				set: function (newValue) {
+
+				set(newValue) {
 					var newMovieName = newValue.split(' ');
 					this.movieName = newMovieName[0];
 					this.moviePart = newMovieName[newMovieName.length - 1];
 				}
 			}
 		},
+
 		watch: {
-			question: function (value) {
-				this.typing = 'typing...';
-				console.log(value);
+			question(value) {
+				this.typing = true;
+
+				if (this.isTyping) {
+					clearInterval(this.isTyping)
+				}
+
+				this.isTyping = setInterval(() => this.typing = false, 500);
 			}
 		}
 	});
