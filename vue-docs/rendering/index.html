@@ -34,6 +34,21 @@
 		<button v-on:click="changeInputType">
 			Change input
 		</button>
+		<div v-show='show'>Показывать</div>
+
+		<!-- rendering list -->
+		<ul class="cities">
+			<li v-for="city in cities">
+				{{city.name}}, {{country}}
+			</li>
+		</ul>
+
+		<ul>
+			<li v-for="(value, key, index) in person"> <!-- без ключа и индекса синтаксис v-for="value in person" -->
+				{{index+1}}.{{key}}: {{value}}
+			</li>
+		</ul>
+
 	</div>
 	<script>
 		var vue = new Vue({
@@ -42,7 +57,19 @@
 			data: {
 				ok: true,
 				number: 4,
-				loginType: 'username'
+				loginType: 'username',
+				show: false,
+				country: 'Ukraine',
+				cities: [
+					{name: 'Dnipro'},
+					{name: 'Kyiv'},
+					{name: 'Odessa'}
+				],
+				person: {
+					firstName: 'Serhii',
+					lastName: 'Panchenko',
+					age: 28
+				}
 			},
 
 			methods: {
