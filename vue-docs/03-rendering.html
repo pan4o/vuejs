@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Rendering</title>
+	<title>Conditional</title>
 	<meta charset="UTF-8">
 	<script src="https://unpkg.com/vue"></script>
 </head>
@@ -34,7 +34,7 @@
 		<button v-on:click="changeInputType">
 			Change input
 		</button>
-		<div v-show='show'>Показывать</div>
+		<div v-show='show'>Показывать</div>changeSeen
 
 		<!-- rendering list -->
 		<ul class="cities">
@@ -48,6 +48,21 @@
 				{{index+1}}.{{key}}: {{value}}
 			</li>
 		</ul>
+		<ul>
+			<li v-for="(item, index) in items">
+				{{item.message}}, {{index}}
+			</li>
+		</ul>
+
+		<p>Вывести обьект в список</p>
+
+		<ul>
+			<li v-for="(value, key, index) in person" :key="value.id">
+				Значение {{value}} с ключем {{key}} и индексом {{index}}
+			</li>
+		</ul>
+
+		<p>Тема: Отслеживание изменений в массивах</p>
 
 	</div>
 	<script>
@@ -69,6 +84,14 @@
 					firstName: 'Serhii',
 					lastName: 'Panchenko',
 					age: 28
+				},
+				items: [
+					{message: 'Foo'},
+					{message: 'Bar'}
+				],
+				person: {
+					name: 'Jeff',
+					surname: 'Bezos'
 				}
 			},
 
