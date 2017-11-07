@@ -64,6 +64,25 @@
 
 		<a href="https://ru.vuejs.org/v2/guide/list.html#Замены-в-массиве" target="_blank">https://ru.vuejs.org/v2/guide/list.html#Замены-в-массиве</a>
 
+		<ul>
+			<li v-for="number in eventNumbers">{{number}}</li>
+		</ul>
+
+		<a href="https://ru.vuejs.org/v2/guide/list.html#v-for-и-диапазоны" target="_blank">https://ru.vuejs.org/v2/guide/list.html#v-for-и-диапазоны</a>
+
+		<!-- в цикл так же можно передавать целое число -->
+
+		<ul>
+			<li v-for="n in 10">{{n}}</li>
+		</ul>
+
+		<!-- v-for in template for render block code -->
+
+		<template v-for="n in numbers">
+			<span>number</span>
+			<p>{{n}}</p>
+		</template>
+
 	</div>
 	<script>
 		var root = new Vue({
@@ -91,9 +110,9 @@
 				person: {
 					name: 'Jeff',
 					surname: 'Bezos'
-				}
+				},
+				numbers: [1,2,3,4,5,6,7,8,9]
 			},
-
 			methods: {
 				changeInputType() {
 					if (this.loginType == 'username') {
@@ -101,6 +120,17 @@
 					} else {
 						this.loginType = 'username';
 					}
+				}
+			},
+			computed: {
+				eventNumbers: function () {
+					let filtered;
+
+					filtered = this.numbers.filter(function (number) {
+						return number % 2 == 0;
+					});
+
+					return filtered
 				}
 			}
 		});
