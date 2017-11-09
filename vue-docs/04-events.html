@@ -6,14 +6,52 @@
 	<script src="https://unpkg.com/vue"></script>
 </head>
 <body>
-	<div id="root"></div>
+	<div id="root">
+		<button @click="countClick">Click</button>
+		<p>Button was clicked {{counter}} times</p>
+		<button @click="greet">Hello Vue.js</button>
+		<p>Инлайн обработчик</p>
+		<button @click="say('Hi!')">Say Hi!</button>
+		<p>Модификаторы событий - в данном случае при сабмите выполняется onSubmit и не перезагружется страница</p>
+		<form @submit.prevent="onSubmit">
+			<input type="text" />
+			<input type="submit" value="Submit" />
+		</form>
+		<br>
+		<button v-bind:class="{active: isActive}" @click="isActive = !isActive">button color</button>
+		<input v-on:keyup.enter="showAlert">
+	</div>
 	<script>
 		var root = new Vue({
 			el: '#root',
 			data: {
-
+				counter: 0,
+				name: 'Vue.js',
+				isActive: true
+			},
+			methods: {
+				countClick() {
+					this.counter += 1;
+				},
+				greet(event) {
+					alert("Hello " + this.name + "!");
+				},
+				say(message) {
+					alert(message);
+				},
+				onSubmit() {
+					console.log('submit');
+				},
+				showAlert() {
+					alert('you click enter')
+				}
 			}
 		});
 	</script>
+	<style scoped>
+	.active {
+		background-color: red;
+	}
+	</style>
 </body>
 </html>
